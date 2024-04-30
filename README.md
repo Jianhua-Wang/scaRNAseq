@@ -28,7 +28,7 @@ conda activate scarna
 To run the tool, you need to provide sample names, paths to the read files (both forward and reverse), and specify the genome version. The command uses the following structure:
 
 ```
-python script/scaRNA.py \
+python scripts/scaRNA.py \
 --sample [sample_name] \
 --fq1 [path_to_read1.fq] \
 --fq2 [path_to_read2.fq] \
@@ -41,7 +41,7 @@ scaRNA-seq involves small RNA library construction, which is a directional libra
 
 ## Example
 ```
-python script/scaRNA.py \
+python scripts/scaRNA.py \
 --sample test \
 --fq1 data/raw/test_1.fq.gz \
 --fq2 data/raw/test_2.fq.gz \
