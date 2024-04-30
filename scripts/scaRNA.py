@@ -377,7 +377,6 @@ def parse_args():
     parser.add_argument(
         "--genome", type=str, default="hg19", help="Genome version", choices=["hg19", "mm10"]
     )
-    parser.add_argument("--ref_dir", type=str, help="Reference directory")
     parser.add_argument("--three_primer", type=str, default="AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC")
     return parser.parse_args()
 

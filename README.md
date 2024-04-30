@@ -15,12 +15,13 @@ This tool is designed to process small RNA sequencing data in a systematic fashi
 
 Clone the repository to your local machine:
 ```
-git clone https://github.com/your-repository/scaRNA-seq-tool.git
-cd scaRNA-seq-tool
+git clone https://github.com/Jianhua-Wang/scaRNAseq.git
+cd scaRNAseq
 ```
 create conda environment:
 ```
 conda env create -f environment.yml
+conda activate scarna
 ```
 ## Usage
 
@@ -32,34 +33,31 @@ python script/scaRNA.py \
 --fq1 [path_to_read1.fq] \
 --fq2 [path_to_read2.fq] \
 --genome [hg19/mm10] \
---ref_dir [path_to_reference_directory]
+--three_primer [adapter_sequence]
 ```
+The idx of `sortmerna` and `bowtie2` will be downloaded automatically. The idx files are stored in `data/ref` directory.
 
-Optional Arguments
-- --three_primer: A string representing the adapter sequence for three-prime trimming (default is specific to the kit used).
-Example Command
-python script.py --sample sample1 --fq1 path/to/sample1_R1.fq --fq2 path/to/sample1_R2.fq --genome hg19 --ref_dir path/to/ref
+scaRNA-seq involves small RNA library construction, which is a directional library. If the kit works fine, the cDNA fragment will be consist of 5' primer, insert cDNA, and 3' primer. So, the reverse read will start with the 3' primer when there is no insert. That's way we need to specify the 3' primer sequence to trim the 3' primer sequence from the reverse read.
 
- 
-Output
+## Example
+```
+python script/scaRNA.py \
+--sample test \
+--fq1 data/raw/test_1.fq.gz \
+--fq2 data/raw/test_2.fq.gz \
+--genome hg19 \
+--three_primer AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC
+```
+In this case, we used a example dataset in the `data/raw` directory. The forward read is `test_1.fq.gz` and the reverse read is `test_2.fq.gz`. The genome version is `hg19` and the 3' primer sequence is `AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC`.
+
+You can generate the QC plots using `./scripts/scaRNA_summary.ipynb`.
+
+## Output
 
 The tool generates multiple output files organized in specific directories under the data folder. Key outputs include:
 
-Trimmed reads: Compressed files containing reads after trimming.
-Filtered reads: Reads after rRNA filtering.
-Aligned reads: BAM files after genomic alignment.
-Annotation files: BED files corresponding to different genomic features.
-Summary files: JSON files containing summary statistics of processing steps.
-Contributing
-
-Contributions to this project are welcome! Please fork the repository and submit pull requests with any enhancements or bug fixes.
-
-License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Contact Information
-
-For help or feedback, please file an issue in the GitHub repository.
-
-This README provides you with detailed instructions on how to use the scaRNA-seq analysis tool and outlines the features and workflow of the script comprehensively.
+- Trimmed reads: Compressed files containing reads after trimming.
+- Filtered reads: Reads after rRNA filtering.
+- Aligned reads: BAM files after genomic alignment.
+- Annotation files: BED files corresponding to different genomic features.
+- Summary files: JSON files containing summary statistics of processing steps.
