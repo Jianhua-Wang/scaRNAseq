@@ -126,8 +126,8 @@ def filter_rRNA(sample):
     --reads {trim_fq1_name} \
     --reads {trim_fq2_name} \
     --aligned "{sample}/N_rRNA" --other "{sample}/N_clean" --paired_in --fastx --out2"""
-    run_cmd(cmd)
-    call(f"cp ./{sample} {rRNA_dir}", shell=True)
+    call(cmd, shell=True)
+    call(f"cp -dr ./{sample} {rRNA_dir}", shell=True)
     run_cmd(f"rm -rf {sample}")
 
 
